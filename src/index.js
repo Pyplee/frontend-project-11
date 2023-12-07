@@ -15,6 +15,8 @@ const elsDOM = {
   input: document.querySelector('#url-input'),
 };
 
-const langInstance = initAndGetLng();
+const langInstance = await initAndGetLng();
 renderLanguage(langInstance, elsDOM);
-app(langInstance, elsDOM);
+app(elsDOM);
+
+export { elsDOM, langInstance };
