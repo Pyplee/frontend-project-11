@@ -1,8 +1,20 @@
 import './styles.scss';
 import 'bootstrap';
-import initValidateUrl from './view.js';
-import i18nInit from './locales/langIndex.js';
+import app from './app.js';
+import { initAndGetLng, renderLanguage } from './locales/i18n.js';
 
-console.log('Hello, World!');
-i18nInit();
-initValidateUrl();
+console.log('START INDEX.JS');
+
+const elsDOM = {
+  title: document.querySelector('h1'),
+  titleDesc: document.querySelector('p.lead'),
+  inputDesc: document.querySelector('label[for="url-input"]'),
+  example: document.querySelector('.text-muted'),
+  textDanger: document.querySelector('.text-danger'),
+  button: document.querySelector('button.btn-primary'),
+  input: document.querySelector('#url-input'),
+};
+
+const langInstance = initAndGetLng();
+renderLanguage(langInstance, elsDOM);
+app(langInstance, elsDOM);
