@@ -1,44 +1,20 @@
 import onChange from 'on-change';
-import renderResultValidation from './notPath';
-// import elsDOM from '../index.js';
-let elsDOM = {};
+import renderError from './renderError.js';
 
-const globalState = {
-  rssForm: {
-    error: [],
-    valid: null,
-  },
-};
-
-function controlFunc(path) {
-  console.log(elsDOM);
-  let temp1;
-  let temp2;
+export default (state, elsDOM, lngInst) => onChange(state, (path, value) => {
+  console.log('path->', path);
   switch (path) {
+    case 'rssForm.error':
+      renderError(value, elsDOM, lngInst);
+      break;
     case 'rssForm.valid':
-      temp1 = globalState.rssForm.valid;
-      temp2 = globalState.rssForm.error;
-      renderResultValidation(elsDOM, temp1, temp2);
-      break;
-    case "Apples":
-      console.log("Apples are $0.32 a pound.");
-      break;
-    case "Bananas":
-      console.log("Bananas are $0.48 a pound.");
-      break;
-    case "Cherries":
-      console.log("Cherries are $3.00 a pound.");
-      break;
-    case "Mangoes":
-    case "Papayas":
-      console.log("Mangoes and papayas are $2.79 a pound.");
+      if (!value) {
+        elsDOM.input.classList.add('is-invalid');
+      } else {
+        elsDOM.input.classList.remove('is-invalid');
+      }
       break;
     default:
-      console.log('Oooops, something went wrong!');
+      alert('Нет таких значений');
   }
-}
-
-export default (els) => {
-  elsDOM = els;
-  return onChange(globalState, (path) => controlFunc(path))
-};
+});
