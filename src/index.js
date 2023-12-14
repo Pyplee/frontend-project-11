@@ -10,13 +10,13 @@ const elsDOM = {
   titleDesc: document.querySelector('p.lead'),
   inputDesc: document.querySelector('label[for="url-input"]'),
   example: document.querySelector('.text-muted'),
-  textDanger: document.querySelector('.text-danger'),
+  textInfo: document.querySelector('.text-danger'),
   button: document.querySelector('button.btn-primary'),
   input: document.querySelector('#url-input'),
 };
 
 const langInstance = await initAndGetLng();
 renderLanguage(langInstance, elsDOM);
-app(elsDOM);
+app(elsDOM, langInstance);
 
 export { elsDOM, langInstance };
