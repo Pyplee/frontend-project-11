@@ -9,6 +9,7 @@ export default {
     meassages: {
       errorNotValid: 'The link must be a valid URL',
       success: 'yes',
+      networkError: 'Network Error',
     },
     // END
   },

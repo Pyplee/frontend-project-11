@@ -9,6 +9,7 @@ export default {
     meassages: {
       errorNotValid: 'Ссылка должна быть валидным URL',
       success: 'Да',
+      networkError: 'Ошибка сети',
     },
     // END
   },
