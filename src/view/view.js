@@ -1,5 +1,6 @@
 import onChange from 'on-change';
 import renderError from './renderError.js';
+import renderData from './renderData.js';
 
 export default (state, elsDOM, lngInst) => onChange(state, (path, value) => {
   console.log('path->', path);
@@ -13,6 +14,9 @@ export default (state, elsDOM, lngInst) => onChange(state, (path, value) => {
       } else {
         elsDOM.input.classList.remove('is-invalid');
       }
+      break;
+    case 'data':
+      renderData(value, elsDOM);
       break;
     default:
       alert('Нет таких значений');
