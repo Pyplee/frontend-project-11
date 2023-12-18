@@ -6,6 +6,8 @@ import { initAndGetLng, renderLanguage } from './locales/i18n.js';
 console.log('START INDEX.JS');
 
 const elsDOM = {
+  divFeeds: document.querySelector('.feeds'),
+  divPosts: document.querySelector('.posts'),
   title: document.querySelector('h1'),
   titleDesc: document.querySelector('p.lead'),
   inputDesc: document.querySelector('label[for="url-input"]'),
