@@ -1,10 +1,8 @@
 import i18n from 'i18next';
-import en from './en.js';
 import ru from './ru.js';
 
 const defaultLanguage = 'ru';
 const resources = {
-  en,
   ru,
 };
 
