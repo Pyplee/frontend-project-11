@@ -1,10 +1,10 @@
-export default (response) => {
+export default (response, url) => {
   const parser = new DOMParser();
   const parsed = parser.parseFromString(response, 'application/xml');
   const channel = parsed.documentElement.children[0];
   const coll = [...channel.children];
   const [title, description] = coll;
-  const feeds = [{ title: title.textContent, description: description.textContent }];
+  const feeds = [{ title: title.textContent, description: description.textContent, url }];
   const posts = [];
   coll.forEach((el) => {
     if (el.tagName === 'item') {
