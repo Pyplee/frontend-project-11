@@ -15,6 +15,15 @@ const globalState = {
   },
 };
 
+function getUrlList() {
+  const { feeds } = globalState.data;
+  if (!feeds.length) {
+    return [];
+  }
+  const result = feeds.map((feed) => feed.url);
+  return result;
+}
+
 const app = (elsDOM, i18n) => {
   const watchedState = initView(globalState, elsDOM);
 
@@ -23,7 +32,7 @@ const app = (elsDOM, i18n) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const url = formData.get('url');
-    validateUrl(url, i18n)
+    validateUrl(url, getUrlList(), i18n)
       .then(() => {
         watchedState.rssForm.error = null;
         watchedState.rssForm.valid = true;
@@ -32,7 +41,7 @@ const app = (elsDOM, i18n) => {
         // return { data: '12345' };
       })
       .then((response) => response.data)
-      .then((data) => parse(data.contents))
+      .then((data) => parse(data.contents, data.status.url))
       .then((data) => {
         const [feeds, posts] = data;
         feeds[0].id = _.uniqueId();
