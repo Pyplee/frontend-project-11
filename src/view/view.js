@@ -1,6 +1,7 @@
 import onChange from 'on-change';
 import renderError from './renderError.js';
 import renderData from './renderData.js';
+import renderSuccess from './rendeStatus.js';
 
 export default (state, elsDOM, lngInst) => onChange(state, (path, value) => {
   console.log('path->', path);
@@ -17,6 +18,8 @@ export default (state, elsDOM, lngInst) => onChange(state, (path, value) => {
       break;
     case 'rss.channels':
       renderData(value, elsDOM);
+      renderSuccess(elsDOM);
+      elsDOM.input.value = '';
       break;
     default:
       alert('Нет таких значений');
