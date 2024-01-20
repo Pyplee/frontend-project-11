@@ -10,6 +10,7 @@ export default {
       errorNotValid: 'Ссылка должна быть валидным URL',
       success: 'Да',
       networkError: 'Ошибка сети',
+      notUniqueUrl: 'RSS уже существует',
     },
     // END
   },
