@@ -15,7 +15,7 @@ export default (state, elsDOM, lngInst) => onChange(state, (path, value) => {
         elsDOM.input.classList.remove('is-invalid');
       }
       break;
-    case 'data':
+    case 'rss.channels':
       renderData(value, elsDOM);
       break;
     default:
