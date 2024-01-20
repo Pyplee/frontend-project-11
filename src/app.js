@@ -9,18 +9,17 @@ const globalState = {
     error: null,
     valid: null,
   },
-  data: {
-    feeds: [],
-    posts: [],
+  rss: {
+    channels: [],
   },
 };
 
 function getUrlList() {
-  const { feeds } = globalState.data;
-  if (!feeds.length) {
+  const { channels } = globalState.rss;
+  if (!channels.length) {
     return [];
   }
-  const result = feeds.map((feed) => feed.url);
+  const result = channels.map((feed) => feed.url);
   return result;
 }
 
@@ -43,17 +42,12 @@ const app = (elsDOM, i18n) => {
       .then((response) => response.data)
       .then((data) => parse(data.contents, data.status.url))
       .then((data) => {
-        const [feeds, posts] = data;
-        feeds[0].id = _.uniqueId();
-        posts.forEach((item) => {
+        data.items.forEach((item) => {
           item.id = _.uniqueId();
         });
-        const otherFeeds = globalState.data.feeds;
-        const otherPosts = globalState.data.posts;
-        watchedState.data = {
-          feeds: [...otherFeeds, ...feeds],
-          posts: [...otherPosts, ...posts],
-        };
+        const oldChannels = globalState.rss.channels;
+        watchedState.rss.channels = [...oldChannels, data];
+        console.log(globalState.rss);
       })
       .catch((err) => {
         if (err.message === 'Network Error') {
