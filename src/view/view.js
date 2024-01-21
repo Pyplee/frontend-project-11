@@ -1,13 +1,12 @@
 import onChange from 'on-change';
-import renderError from './renderError.js';
+import renderStatus from './renderStatus.js';
 import renderData from './renderData.js';
-import renderSuccess from './rendeStatus.js';
 
 export default (state, elsDOM, lngInst) => onChange(state, (path, value) => {
   console.log('path->', path);
   switch (path) {
     case 'rssForm.error':
-      renderError(value, elsDOM, lngInst);
+      renderStatus(value, elsDOM, lngInst);
       break;
     case 'rssForm.valid':
       if (!value) {
@@ -18,7 +17,7 @@ export default (state, elsDOM, lngInst) => onChange(state, (path, value) => {
       break;
     case 'rss.channels':
       renderData(value, elsDOM);
-      renderSuccess(elsDOM);
+      renderStatus('RSS успешно загружен', elsDOM);
       elsDOM.input.value = '';
       break;
     default:
