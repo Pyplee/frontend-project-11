@@ -3,7 +3,6 @@ import renderStatus from './renderStatus.js';
 import renderData from './renderData.js';
 
 export default (state, elsDOM, lngInst) => onChange(state, (path, value) => {
-  console.log('path->', path);
   switch (path) {
     case 'rssForm.error':
       renderStatus(value, elsDOM, lngInst);
@@ -17,10 +16,10 @@ export default (state, elsDOM, lngInst) => onChange(state, (path, value) => {
       break;
     case 'rss.channels':
       renderData(value, elsDOM);
-      renderStatus('RSS успешно загружен', elsDOM);
+      renderStatus('RSS successfully uploaded', elsDOM, lngInst);
       elsDOM.input.value = '';
       break;
     default:
-      alert('Нет таких значений');
+      throw new Error('Path error in view (view.js -> default on case)');
   }
 });
