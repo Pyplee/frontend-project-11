@@ -8,7 +8,7 @@ export default {
     button: 'Добавить',
     meassages: {
       errorNotValid: 'Ссылка должна быть валидным URL',
-      success: 'Да',
+      success: 'RSS успешно загружен',
       networkError: 'Ошибка сети',
       notUniqueUrl: 'RSS уже существует',
     },
