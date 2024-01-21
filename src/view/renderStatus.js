@@ -1,13 +1,13 @@
-export default (message, elsDOM) => {
-  if (message === null) {
-    elsDOM.textInfo.classList.remove('text-danger');
-    elsDOM.textInfo.textContent = '';
-  } else if (message === 'RSS успешно загружен') {
+export default (message, elsDOM, i18n) => {
+  elsDOM.textInfo.classList.add('text-danger');
+  elsDOM.textInfo.textContent = '';
+  if (message === 'Network Error') {
+    elsDOM.textInfo.textContent = i18n.t('meassages.networkError');
+  } else if (message === 'RSS successfully uploaded') {
     elsDOM.textInfo.classList.remove('text-danger');
     elsDOM.textInfo.classList.add('text-success');
-    elsDOM.textInfo.textContent = message;
+    elsDOM.textInfo.textContent = i18n.t('meassages.success');
   } else {
-    elsDOM.textInfo.classList.add('text-danger');
     elsDOM.textInfo.textContent = message;
   }
 };
