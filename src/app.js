@@ -24,7 +24,7 @@ function getUrlList() {
 }
 
 const app = (elsDOM, i18n) => {
-  const watchedState = initView(globalState, elsDOM);
+  const watchedState = initView(globalState, elsDOM, i18n);
 
   const form = document.querySelector('.rss-form');
   form.addEventListener('submit', (e) => {
@@ -50,12 +50,8 @@ const app = (elsDOM, i18n) => {
         console.log(globalState.rss);
       })
       .catch((err) => {
-        if (err.message === 'Network Error') {
-          watchedState.rssForm.error = i18n.t('meassages.networkError');
-        } else {
-          watchedState.rssForm.error = err.message;
-          watchedState.rssForm.valid = false;
-        }
+        watchedState.rssForm.error = err.message;
+        watchedState.rssForm.valid = false;
       });
   });
 };
