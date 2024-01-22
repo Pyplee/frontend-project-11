@@ -26,7 +26,6 @@ async function updateData(watchedState) {
       const { data } = response;
       return parse(data.contents, data.status.url);
     });
-    // CATCH !
     const result = oldData.map((oldChannel, index) => {
       const { items } = oldChannel;
       const oldTitles = items.map((obj) => obj.title);
@@ -55,7 +54,10 @@ async function updateData(watchedState) {
       updateData(watchedState);
     }, 5000);
   } catch (err) {
-    watchedState.rssForm.error = err.message;
+    console.log(err);
+    timeoutID = window.setTimeout(() => {
+      updateData(watchedState);
+    }, 5000);
   }
 }
 
