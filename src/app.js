@@ -14,6 +14,61 @@ const globalState = {
   },
 };
 
+let timeoutID;
+
+async function updateData(watchedState) {
+  try {
+    let checkNewData = false;
+    const oldData = globalState.rss.channels;
+    const contentPromises = oldData.map((channel) => fetch(channel.url));
+    const contents = await Promise.all(contentPromises);
+    const newData = contents.map((response) => {
+      const { data } = response;
+      return parse(data.contents, data.status.url);
+    });
+    // CATCH !
+    const result = oldData.map((oldChannel, index) => {
+      const { items } = oldChannel;
+      const oldTitles = items.map((obj) => obj.title);
+      const newChannel = newData[index];
+      const newItems = newChannel.items;
+      const itemDifferences = newItems.filter((el) => {
+        const { title } = el;
+        return !oldTitles.includes(title);
+      });
+      if (itemDifferences.length) {
+        checkNewData = true;
+        const channelWithDifferences = oldChannel;
+        const itemDifferencesWithId = itemDifferences.map((obj) => {
+          obj.id = _.uniqueId();
+          return obj;
+        });
+        channelWithDifferences.items = [...itemDifferencesWithId, ...items];
+        return channelWithDifferences;
+      }
+      return oldChannel;
+    });
+    if (checkNewData) {
+      watchedState.rss.channels = result;
+    }
+    timeoutID = window.setTimeout(() => {
+      updateData(watchedState);
+    }, 5000);
+  } catch (err) {
+    watchedState.rssForm.error = err.message;
+  }
+}
+
+function delayedUpdate(watchedState) {
+  timeoutID = window.setTimeout(() => {
+    updateData(watchedState);
+  }, 5000);
+}
+
+function clearUpdate() {
+  window.clearTimeout(timeoutID);
+}
+
 function getUrlList() {
   const { channels } = globalState.rss;
   if (!channels.length) {
@@ -29,6 +84,7 @@ const app = (elsDOM, i18n) => {
   const form = document.querySelector('.rss-form');
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    clearUpdate();
     const formData = new FormData(e.target);
     const url = formData.get('url');
     validateUrl(url, getUrlList(), i18n)
@@ -47,7 +103,7 @@ const app = (elsDOM, i18n) => {
         });
         const oldChannels = globalState.rss.channels;
         watchedState.rss.channels = [...oldChannels, data];
-        console.log(globalState.rss);
+        delayedUpdate(watchedState);
       })
       .catch((err) => {
         watchedState.rssForm.error = err.message;
