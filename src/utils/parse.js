@@ -3,7 +3,6 @@ export default (response, url) => {
   const parsed = parser.parseFromString(response, 'application/xml');
   const channel = parsed.documentElement.children[0];
   const coll = [...channel.children];
-  console.log(coll);
   const [title, description] = coll;
   const items = [];
   coll.forEach((el) => {
