@@ -6,8 +6,6 @@ export default (channels, elsDOM) => {
   const tempPosts = [];
   channels.forEach((el) => tempPosts.push(el.items));
   const posts = tempPosts.flat();
-  console.log(feeds);
-  console.log(posts);
   const initContainers = (elF, titleEl) => {
     const card = document.createElement('div');
     card.classList.add('card', 'border-0');
