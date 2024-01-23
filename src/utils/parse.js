@@ -7,7 +7,21 @@ export default (response, url) => {
   const items = [];
   coll.forEach((el) => {
     if (el.tagName === 'item') {
-      const [tl, , link, desc] = [...el.children];
+      let tl;
+      let link;
+      let desc;
+      const children = [...el.children];
+      children.forEach((element) => {
+        if (element.tagName === 'title') {
+          tl = element;
+        }
+        if (element.tagName === 'description') {
+          desc = element;
+        }
+        if (element.tagName === 'link') {
+          link = element;
+        }
+      });
       items.push({ title: tl.textContent, link: link.textContent, description: desc.textContent });
     }
   });
