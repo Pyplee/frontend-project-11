@@ -122,7 +122,7 @@ const app = (elsDOM, i18n) => {
         return fetch(valueInput);
       })
       .then((response) => response.data)
-      .then((data) => parse(data.contents, data.status.url))
+      .then((data) => parse(data.contents, url))
       .then((data) => {
         data.items.forEach((item) => {
           item.id = _.uniqueId();
