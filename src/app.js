@@ -3,6 +3,7 @@ import validateUrl from './utils/validate.js';
 import initView from './view/view.js';
 import fetch from './utils/fetch.js';
 import parse from './utils/parse.js';
+import renderChecked from './view/renderChecked.js';
 
 const globalState = {
   rssForm: {
@@ -11,10 +12,32 @@ const globalState = {
   },
   rss: {
     channels: [],
+    checked: [],
   },
 };
 
 let timeoutID;
+
+function initEventButton(watchedState) {
+  const myModal = document.querySelector('#modal');
+  const btnForModal = document.querySelectorAll('[data-bs-toggle="modal"]');
+
+  btnForModal.forEach((btnM) => {
+    btnM.addEventListener('click', (el) => {
+      const btn = el.target;
+      const { id } = btn.dataset;
+      const allPosts = globalState.rss.channels.map((channel) => channel.items).flat();
+      const post = allPosts.find((item) => item.id === id);
+      const titleModal = myModal.querySelector('h5');
+      const descModal = myModal.querySelector('.text-break');
+      const linkModal = myModal.querySelector('a');
+      linkModal.href = post.link;
+      titleModal.textContent = post.title;
+      descModal.textContent = post.description;
+      watchedState.rss.checked.push(id);
+    });
+  });
+}
 
 async function updateData(watchedState) {
   try {
@@ -49,6 +72,8 @@ async function updateData(watchedState) {
     });
     if (checkNewData) {
       watchedState.rss.channels = result;
+      initEventButton(watchedState);
+      renderChecked(globalState.rss.checked);
     }
     timeoutID = window.setTimeout(() => {
       updateData(watchedState);
@@ -105,6 +130,8 @@ const app = (elsDOM, i18n) => {
         });
         const oldChannels = globalState.rss.channels;
         watchedState.rss.channels = [...oldChannels, data];
+        initEventButton(watchedState);
+        renderChecked(globalState.rss.checked);
         delayedUpdate(watchedState);
       })
       .catch((err) => {
