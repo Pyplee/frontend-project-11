@@ -1,4 +1,5 @@
 export default (message, elsDOM, i18n) => {
+  elsDOM.textInfo.classList.remove('text-success');
   elsDOM.textInfo.classList.add('text-danger');
   elsDOM.textInfo.textContent = '';
   if (message === 'Network Error') {
