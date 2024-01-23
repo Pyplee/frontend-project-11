@@ -120,7 +120,6 @@ const app = (elsDOM, i18n) => {
         watchedState.rssForm.valid = true;
         const valueInput = elsDOM.input.value;
         return fetch(valueInput);
-        // return { data: '12345' };
       })
       .then((response) => response.data)
       .then((data) => parse(data.contents, data.status.url))
