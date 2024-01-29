@@ -11,6 +11,7 @@ export default {
       success: 'RSS успешно загружен',
       networkError: 'Ошибка сети',
       notUniqueUrl: 'RSS уже существует',
+      rssDoesNotContain: 'Ресурс не содержит валидный RSS',
     },
     // END
   },
