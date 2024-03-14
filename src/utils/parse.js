@@ -1,6 +1,15 @@
-export default (response, url) => {
+function tryParseXML(xmlString) {
   const parser = new DOMParser();
-  const parsed = parser.parseFromString(response, 'application/xml');
+  const parsererrorNS = parser.parseFromString('INVALID', 'application/xml').getElementsByTagName('parsererror')[0].namespaceURI;
+  const dom = parser.parseFromString(xmlString, 'application/xml');
+  if (dom.getElementsByTagNameNS(parsererrorNS, 'parsererror').length > 0) {
+    throw new Error('Parse Error');
+  }
+  return dom;
+}
+
+export default (response, url) => {
+  const parsed = tryParseXML(response);
   const channel = parsed.documentElement.children[0];
   const coll = [...channel.children];
   const [title, description] = coll;
