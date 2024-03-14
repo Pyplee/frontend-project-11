@@ -12,6 +12,7 @@ export default {
       networkError: 'Ошибка сети',
       notUniqueUrl: 'RSS уже существует',
       rssDoesNotContain: 'Ресурс не содержит валидный RSS',
+      parseError: 'Ошибка парсинга',
     },
     // END
   },
