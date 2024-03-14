@@ -10,6 +10,8 @@ export default (message, elsDOM, i18n) => {
     elsDOM.textInfo.textContent = i18n.t('meassages.success');
   } else if (message === 'The resource does not contain valid RSS') {
     elsDOM.textInfo.textContent = i18n.t('meassages.rssDoesNotContain');
+  } else if (message === 'Parse Error') {
+    elsDOM.textInfo.textContent = i18n.t('meassages.parseError');
   } else {
     elsDOM.textInfo.textContent = message;
   }
