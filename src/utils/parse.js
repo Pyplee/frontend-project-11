@@ -3,7 +3,7 @@ function tryParseXML(xmlString) {
   const parsererrorNS = parser.parseFromString('INVALID', 'application/xml').getElementsByTagName('parsererror')[0].namespaceURI;
   const dom = parser.parseFromString(xmlString, 'application/xml');
   if (dom.getElementsByTagNameNS(parsererrorNS, 'parsererror').length > 0) {
-    throw new Error('Parse Error');
+    throw new Error('The resource does not contain valid RSS');
   }
   return dom;
 }
