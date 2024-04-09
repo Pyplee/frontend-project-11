@@ -3,8 +3,6 @@ import 'bootstrap';
 import app from './app.js';
 import { initAndGetLng, renderLanguage } from './locales/i18n.js';
 
-console.log('START INDEX.JS');
-
 const elsDOM = {
   divFeeds: document.querySelector('.feeds'),
   divPosts: document.querySelector('.posts'),
