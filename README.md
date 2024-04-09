@@ -11,7 +11,7 @@ $ make install
 ```bash
 $ make develop
 ```
-2. Use deploy version
-Deploy: https://frontend-project-11-one-jet.vercel.app/
+2. Use deploy version 
+https://frontend-project-11-one-jet.vercel.app/
 ### Description:
 This project is designed as a website, it is able to read rss streams and subscribe to notifications.
