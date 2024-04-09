@@ -1,4 +1,4 @@
-export default (channels, elsDOM) => {
+export default (channels, elsDOM, lng) => {
   const feeds = channels.map((el) => ({
     title: el.title,
     description: el.description,
@@ -26,8 +26,8 @@ export default (channels, elsDOM) => {
   };
 
   if (elsDOM.divFeeds.childNodes.length === 0) {
-    initContainers(elsDOM.divFeeds, 'Фиды');
-    initContainers(elsDOM.divPosts, 'Посты');
+    initContainers(elsDOM.divFeeds, lng.t('feeds'));
+    initContainers(elsDOM.divPosts, lng.t('posts'));
   }
 
   const contListFeeds = elsDOM.divFeeds.querySelector('ul');
@@ -70,7 +70,7 @@ export default (channels, elsDOM) => {
     button.dataset.id = el.id;
     button.dataset.bsToggle = 'modal';
     button.dataset.bsTarget = '#modal';
-    button.textContent = 'Просмотр';
+    button.textContent = lng.t('watch');
 
     containerfeed.appendChild(a);
     containerfeed.appendChild(button);
