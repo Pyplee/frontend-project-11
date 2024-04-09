@@ -16,7 +16,7 @@ export default (state, elsDOM, lngInst) => onChange(state, (path, value) => {
       }
       break;
     case 'rss.channels':
-      renderData(value, elsDOM);
+      renderData(value, elsDOM, lngInst);
       renderStatus('RSS successfully uploaded', elsDOM, lngInst);
       elsDOM.input.value = '';
       break;
