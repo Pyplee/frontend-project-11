@@ -6,6 +6,9 @@ export default {
     inputDesc: 'Ссылка RSS',
     example: 'Пример: https://ru.hexlet.io/lessons.rss',
     button: 'Добавить',
+    posts: 'Посты',
+    feeds: 'Фиды',
+    watch: 'Просмотр',
     meassages: {
       errorNotValid: 'Ссылка должна быть валидным URL',
       success: 'RSS успешно загружен',
