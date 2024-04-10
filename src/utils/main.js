@@ -7,13 +7,12 @@ import initEventButton from './events.js';
 import { delayedUpdate, clearUpdate } from './update.js';
 
 export default (url, getUrlList, i18n, watchedState, globalState, elsDOM) => {
-  validateUrl(url, getUrlList(), i18n)
+  validateUrl(url, getUrlList(globalState), i18n)
     .then(() => {
       watchedState.rssForm.error = null;
       watchedState.rssForm.valid = true;
       const valueInput = elsDOM.input.value;
       return fetch(valueInput);
-    // return { data: { contents: '1234' } };
     })
     .then((response) => response.data)
     .then((data) => parse(data.contents, url))
